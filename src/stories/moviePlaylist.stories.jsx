@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router";
 import MoviesContextProvider from "../contexts/moviesContext";
 import testMovies from "../dataStore/testMovies.json";
 import SampleMovie from "./sampleData";
-
+import Playlists from "../dataStore/movie-playlists.json";
 
 export default {
   title: "Movies playlist",
@@ -16,14 +16,7 @@ export default {
 };
 
 export const Basic = () => {
-  const testMovies = [
-    { ...SampleMovie, id: 1 },
-    { ...SampleMovie, id: 2 },
-    { ...SampleMovie, id: 3 },
-    { ...SampleMovie, id: 4 },
-    { ...SampleMovie, id: 5 },
-    { ...SampleMovie, id: 6 },
-  ];
+  const testMovies = Playlists[0].movies;
   return (
     <MoviePlaylist title="My playlist" playlistMovies={testMovies} />
   );

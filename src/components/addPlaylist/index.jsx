@@ -38,7 +38,7 @@ const AddPlaylist = () => {
           <SubmitText label={"Add Playlist"} buttonText={"Add Playlist"} onAction={handleSubmit}/>
         </div>
       ) : (
-        <Button aria-label="add playlist" onClick={handleClick}>Add Playlist</Button>
+        <Button variant="contained" aria-label="add playlist" onClick={handleClick}>Add Playlist</Button>
       )} 
     </div>
   );

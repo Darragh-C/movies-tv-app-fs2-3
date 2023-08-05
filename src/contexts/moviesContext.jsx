@@ -10,6 +10,53 @@ const MoviesContextProvider = (props) => {
   const [tvFavourites, setTvFavourites] = useState([]);
   const [castFavourites, setCastFavourites] = useState([]);
   const [currentFetchContext, setCurrentFetchContext] = useState("Discover");
+  const [playlists, setPlaylists] = useState([]);
+
+  const removePlaylist = (playlistName) => {
+    //check if playlist exists
+    const existingPlaylist = playlists.find((p) => p.playlist === playlistName);
+    //if it does, remove it
+    if (existingPlaylist) {
+      const updatedPlaylists = playlists.filter((p) => p.playlist === playlistName);
+      setPlaylists((prevPlaylists) => (updatedPlaylists));
+    }
+  }
+
+  const addPlaylist = (playlistName) => {
+    const newPlaylist = {
+      playlist: playlistName,
+      movies: [],
+    };
+    setPlaylists((prevPlaylists) => [...prevPlaylists, newPlaylist]);
+  };
+
+  const addPlaylistMovie = (playlistName, movie) => {
+    //find playlist
+    const playlist = playlists.find((p) => p.playlist === playlistName);
+    if (playlist) {
+      const updatedPlaylist = {
+        ...existingPlaylist,
+        movies: [...existingPlaylist.movies, ...movie],
+      };
+      setPlaylists((prevPlaylists) => [...prevPlaylists, updatedPlaylist]);
+    } else {
+      console.log("playlist not found")
+    }  
+  };
+
+  const removePlaylistMovie = (playlistName, movie) => {
+    //check if playlist already exists
+    const playlist = playlists.find((p) => p.playlist === playlistName);
+    // if it does, 
+    if (playlist) {
+      const playlistMovies = playlist.movies.filter((m) => m.id === movie.id);
+      const updatedPlaylist = {
+        ...playlist,
+        movies: [playlistMovies],
+      };
+    }
+    setPlaylists((prevPlaylists) => [...prevPlaylists, updatedPlaylist]); 
+  };
 
   const updateFetchContext = (fetchContext) => {
     setCurrentFetchContext(fetchContext);
@@ -84,7 +131,12 @@ const MoviesContextProvider = (props) => {
         castFavourites, 
         addToCastFavourites,
         currentFetchContext,
-        updateFetchContext
+        updateFetchContext,
+        addPlaylist,
+        addPlaylistMovie,
+        removePlaylist,
+        removePlaylistMovie,
+        playlists,
       }}
     >
       {props.children}

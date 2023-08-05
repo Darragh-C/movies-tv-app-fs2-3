@@ -51,7 +51,7 @@ function SubmitText({ label, buttonText, onAction }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <br/>
+   
       <label key={label + "-label"} sx={styles.label}>
         <p key={label + "-text"} style={styles.text}>{label}:</p>
         <input
@@ -63,7 +63,7 @@ function SubmitText({ label, buttonText, onAction }) {
           onChange={handleInputChange}
         />
       </label>
-      <button key={label + "-button"} sx={styles.button} type="submit">
+      <button variant="contained" key={label + "-button"} sx={styles.button} type="submit">
         {buttonText}
       </button>
     </form>
