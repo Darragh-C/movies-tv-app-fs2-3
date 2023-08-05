@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import playlists from "../dataStore/movie-playlists.json"
 
 export const MoviesContext = React.createContext(null);
 
@@ -10,7 +11,7 @@ const MoviesContextProvider = (props) => {
   const [tvFavourites, setTvFavourites] = useState([]);
   const [castFavourites, setCastFavourites] = useState([]);
   const [currentFetchContext, setCurrentFetchContext] = useState("Discover");
-  const [playlists, setPlaylists] = useState([]);
+  const [playlists, setPlaylists] = useState([playlists]);
 
   const removePlaylist = (playlistName) => {
     //check if playlist exists

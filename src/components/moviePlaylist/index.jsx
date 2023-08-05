@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Typography } from '@mui/material';
 import CardItem from '../cardItem';
+import RemoveFromPlaylist from '../cardIcons/removeFromPlaylist';
 
 const styles = {
   frameContainer: {
@@ -24,6 +25,7 @@ const styles = {
     flex: '0 0 auto',
     minWidth: 200,
     margin: '0 8px',
+    mx: 1,
   },
   typeography: {
     display:"flex",
@@ -45,9 +47,13 @@ const MoviePlaylist = ({ title, playlistMovies }) => {
         </div>
         <div style={{ overflowX: 'auto' }}>
           <div style={styles.cardContainer}>
-            {playlistMovies.map((card) => (
-              <Card key={card.id} sx={{ ...styles.card, mx: 1 }}>
-                <CardItem key={card.id} item={card}/>
+            {playlistMovies.map((m) => (
+              <Card key={m.id} sx={styles.card}>
+                <CardItem key={m.id} item={m} action={(m) => {
+                  return (
+                    <RemoveFromPlaylist playlist={title} movie={m.id}/>
+                  )
+                }}/>
               </Card>
             ))}
           </div>
