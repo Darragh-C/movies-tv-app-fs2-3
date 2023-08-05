@@ -17,7 +17,11 @@ import { MoviesContext } from "../../contexts/moviesContext";
 
 
 const styles = {
-  card: { maxWidth: 345 },
+  card: { 
+    maxWidth: 345,
+    minWidth: 300,
+    // padding: 1,
+  },
   media: { height: 500 },
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",
@@ -68,7 +72,7 @@ export default function CardItem({ item, action }) {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-        {action(item)}
+        {action && action(item)}
         <Link to={`/${context.linkBasePath}/${item.id}`}>
           <Button variant="outlined" size="medium" color="primary">
             More Info ...

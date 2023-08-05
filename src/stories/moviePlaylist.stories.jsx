@@ -20,9 +20,12 @@ export const Basic = () => {
     { ...SampleMovie, id: 1 },
     { ...SampleMovie, id: 2 },
     { ...SampleMovie, id: 3 },
+    { ...SampleMovie, id: 4 },
+    { ...SampleMovie, id: 5 },
+    { ...SampleMovie, id: 6 },
   ];
   return (
-    <MoviePlaylist title="playlist" playlistMovies={testMovies} />
+    <MoviePlaylist title="My playlist" playlistMovies={testMovies} />
   );
 };
 Basic.storyName = "Default";
