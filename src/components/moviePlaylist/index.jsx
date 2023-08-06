@@ -9,7 +9,7 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-   
+    minWidth: "80%",
     overflowX: 'auto',
     paddingTop: 30,
     paddingLeft: 40,
