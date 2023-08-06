@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import playlists from "../dataStore/movie-playlists.json"
+import React, { useState, useEffect } from "react";
+import testPlaylists from "../dataStore/movie-playlists.json"
 
 export const MoviesContext = React.createContext(null);
 
@@ -11,12 +11,10 @@ const MoviesContextProvider = (props) => {
   const [tvFavourites, setTvFavourites] = useState([]);
   const [castFavourites, setCastFavourites] = useState([]);
   const [currentFetchContext, setCurrentFetchContext] = useState("Discover");
-  const [playlists, setPlaylists] = useState([playlists]);
+  const [playlists, setPlaylists] = useState([  ]);
 
   const removePlaylist = (playlistName) => {
-    //check if playlist exists
     const existingPlaylist = playlists.find((p) => p.playlist === playlistName);
-    //if it does, remove it
     if (existingPlaylist) {
       const updatedPlaylists = playlists.filter((p) => p.playlist === playlistName);
       setPlaylists((prevPlaylists) => (updatedPlaylists));
@@ -24,15 +22,17 @@ const MoviesContextProvider = (props) => {
   }
 
   const addPlaylist = (playlistName) => {
+    console.log("playlistName at context function",playlistName);
+    let updatedPlaylists = [...playlists];
     const newPlaylist = {
       playlist: playlistName,
       movies: [],
     };
-    setPlaylists((prevPlaylists) => [...prevPlaylists, newPlaylist]);
+    updatedPlaylists.push(newPlaylist)
+    setPlaylists(updatedPlaylists);
   };
 
   const addPlaylistMovie = (playlistName, movie) => {
-    //find playlist
     const playlist = playlists.find((p) => p.playlist === playlistName);
     if (playlist) {
       const updatedPlaylist = {
@@ -46,9 +46,7 @@ const MoviesContextProvider = (props) => {
   };
 
   const removePlaylistMovie = (playlistName, movie) => {
-    //check if playlist already exists
     const playlist = playlists.find((p) => p.playlist === playlistName);
-    // if it does, 
     if (playlist) {
       const playlistMovies = playlist.movies.filter((m) => m.id === movie.id);
       const updatedPlaylist = {

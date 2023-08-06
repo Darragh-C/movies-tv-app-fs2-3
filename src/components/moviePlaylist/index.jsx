@@ -8,7 +8,10 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "140vh", 
+   
+    overflowX: 'auto',
+    paddingTop: 30,
+    paddingLeft: 40,
   },
   playlistContainer: {
     border: "1px solid #ccc",
@@ -25,14 +28,13 @@ const styles = {
     flex: '0 0 auto',
     minWidth: 200,
     margin: '0 8px',
-    mx: 1,
   },
   typeography: {
     display:"flex",
     justifyContent:"center",
   },
   titleDiv: {
-    padding: "20px"
+    paddingBottom: "20px"
   },
 };
 
@@ -45,19 +47,22 @@ const MoviePlaylist = ({ title, playlistMovies }) => {
             {title}
           </Typography>
         </div>
-        <div style={{ overflowX: 'auto' }}>
-          <div style={styles.cardContainer}>
-            {playlistMovies.map((m) => (
-              <Card key={m.id} sx={styles.card}>
-                <CardItem key={m.id} item={m} action={(m) => {
-                  return (
-                    <RemoveFromPlaylist playlist={title} movie={m.id}/>
-                  )
-                }}/>
-              </Card>
-            ))}
+        {playlistMovies && 
+          <div style={{ overflowX: 'auto' }}>
+            <div style={styles.cardContainer}>
+              {playlistMovies.map((m) => (
+                <Card key={m.id} sx={styles.card}>
+                  <CardItem key={m.id} item={m} action={(m) => {
+                    return (
+                      <RemoveFromPlaylist playlist={title} movie={m.id}/>
+                    )
+                  }}/>
+                </Card>
+              ))}
+            </div>
           </div>
-        </div>
+        }
+        
       </div>
     </div>
   );

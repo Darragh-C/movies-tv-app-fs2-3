@@ -23,6 +23,7 @@ import MovieSearch from "./pages/movieSearch";
 import LogInPage from "./pages/logInPage";
 import AuthContextProvider from "./contexts/authContext";
 import PrivateRoute from "./components/privateRoute";
+import MoviePlaylistsPage from "./pages/moviePlaylists";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -51,6 +52,7 @@ const App = (props) => {
                   </PrivateRoute>
                 }
               />
+              <Route path="/movies/playlists" element={<MoviePlaylistsPage />} />
               <Route path="/cast/:id" element={<CastDetailsPage />} />
               <Route path="/tvshows/:seriesId/season/:seasonNum" element={<SeasonDetailsPage />} />
               <Route path="/tvshows/:id" element={<TvDetailsPage />} />
