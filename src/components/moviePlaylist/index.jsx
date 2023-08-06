@@ -7,7 +7,7 @@ import RemovePlaylistIcon from '../cardIcons/removePlaylistIcon';
 const styles = {
   frameContainer: {
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "left",
     alignItems: "center",
     minWidth: "80%",
     overflowX: 'auto',
@@ -32,7 +32,7 @@ const styles = {
   },
   typeography: {
     display:"flex",
-    justifyContent:"center",
+    justifyContent:"left",
   },
   titleDiv: {
     paddingBottom: "20px"
