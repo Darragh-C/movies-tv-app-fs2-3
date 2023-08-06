@@ -8,6 +8,7 @@ const RemoveFromPlaylist = ({ playlist, movie }) => {
 
   const onClick = (e) => {
     e.preventDefault();
+    console.log("removePlaylistMovie", movie);
     context.removePlaylistMovie(playlist, movie);
   };
 

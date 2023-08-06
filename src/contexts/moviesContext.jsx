@@ -47,13 +47,18 @@ const MoviesContextProvider = (props) => {
   const removePlaylistMovie = (playlistName, movie) => {
     const playlist = playlists.find((p) => p.playlist === playlistName);
     if (playlist) {
-      const playlistMovies = playlist.movies.filter((m) => m.id === movie.id);
+      const playlistMovies = playlist.movies.filter((m) => m.id !== movie);
       const updatedPlaylist = {
         ...playlist,
-        movies: [playlistMovies],
+        movies: playlistMovies,
       };
+      const playlistIndex = playlists.findIndex((p) => p.playlist === playlistName);
+      if (playlistIndex !== -1) {
+        const updatedPlaylists = [...playlists];
+        updatedPlaylists[playlistIndex] = updatedPlaylist;
+        setPlaylists(updatedPlaylists);
+      }
     }
-    setPlaylists((prevPlaylists) => [...prevPlaylists, updatedPlaylist]); 
   };
 
   const updateFetchContext = (fetchContext) => {
