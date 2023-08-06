@@ -16,7 +16,7 @@ const MoviesContextProvider = (props) => {
   const removePlaylist = (playlistName) => {
     const existingPlaylist = playlists.find((p) => p.playlist === playlistName);
     if (existingPlaylist) {
-      const updatedPlaylists = playlists.filter((p) => p.playlist === playlistName);
+      const updatedPlaylists = playlists.filter((p) => p.playlist !== playlistName);
       setPlaylists((prevPlaylists) => (updatedPlaylists));
     }
   }

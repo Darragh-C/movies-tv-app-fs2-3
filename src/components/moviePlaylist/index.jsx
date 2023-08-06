@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Typography } from '@mui/material';
 import CardItem from '../cardItem';
 import RemoveFromPlaylist from '../cardIcons/removeFromPlaylist';
+import RemovePlaylistIcon from '../cardIcons/removePlaylistIcon';
 
 const styles = {
   frameContainer: {
@@ -62,7 +63,7 @@ const MoviePlaylist = ({ title, playlistMovies }) => {
             </div>
           </div>
         }
-        
+        <RemovePlaylistIcon playlistName={title}/>
       </div>
     </div>
   );
