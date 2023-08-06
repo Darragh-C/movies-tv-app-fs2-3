@@ -13,6 +13,12 @@ const MoviesContextProvider = (props) => {
   const [currentFetchContext, setCurrentFetchContext] = useState("Discover");
   const [playlists, setPlaylists] = useState([  ]);
 
+  const updateFavouriteRank = (movie, rank) => {
+    const updatedArray = favourites.filter((m) => m !== movie);
+    updatedArray.splice(rank, 0, movie);
+    setFavourites(updatedArray);
+  }
+
   const removePlaylist = (playlistName) => {
     const existingPlaylist = playlists.find((p) => p.playlist === playlistName);
     if (existingPlaylist) {
@@ -125,6 +131,7 @@ const MoviesContextProvider = (props) => {
         favourites,
         addToFavourites,
         removeFromFavourites,
+        updateFavouriteRank,
         addToMustWatch,
         linkBasePath,
         setBasePath,
