@@ -5,6 +5,8 @@ import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
 import { MoviesContext } from "../contexts/moviesContext";
+import AddToPlaylistIcon from "../components/cardIcons/addToPlaylist";
+import testPlaylists from "../dataStore/movie-playlists.json"
 
 const MoviesPage = () => {
   const context = useContext(MoviesContext);
@@ -15,6 +17,11 @@ const MoviesPage = () => {
       console.log(context.linkBasePath);
     }
   }, [context.basePath]);
+
+  // const playlists = context.playlists.map((p) => p.playlist);
+  const playlists =   testPlaylists.map((p) => p.playlist);
+  
+  console.log("playlists at page", playlists)
 
 
   const [page, setPage] = useState(1);
@@ -53,6 +60,9 @@ const MoviesPage = () => {
       pagination={handlePageChange}
       action={(movie) => {
         return <AddToFavouritesIcon movie={movie} />
+      }}
+      addToPlaylist={(movie) => {
+        return <AddToPlaylistIcon movie={movie} />
       }}
     />
   );

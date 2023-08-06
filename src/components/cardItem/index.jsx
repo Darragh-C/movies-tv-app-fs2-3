@@ -28,7 +28,7 @@ const styles = {
   },
 };
 
-export default function CardItem({ item, action }) {      
+export default function CardItem({ item, action, addToPlaylist }) {      
   const context = useContext(MoviesContext);
   return (
     <Card sx={styles.card}>
@@ -73,6 +73,7 @@ export default function CardItem({ item, action }) {
       </CardContent>
       <CardActions disableSpacing>
         {action && action(item)}
+        {addToPlaylist && addToPlaylist(item)}
         <Link to={`/${context.linkBasePath}/${item.id}`}>
           <Button variant="outlined" size="medium" color="primary">
             More Info ...

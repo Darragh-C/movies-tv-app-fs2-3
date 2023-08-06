@@ -41,7 +41,7 @@ const styles = {
 };
 
 
-function CardListPage({ movies, title, action, pagination, searchQuery }) {
+function CardListPage({ movies, title, action, pagination, searchQuery, addToPlaylist }) {
   const [titleFilter, setTitleFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
@@ -144,6 +144,7 @@ function CardListPage({ movies, title, action, pagination, searchQuery }) {
           <CardList
             items={displayedMovies}
             action={action}
+            addToPlaylist={addToPlaylist}
           />
         </Grid>
       </Grid>

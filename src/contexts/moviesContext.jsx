@@ -33,16 +33,15 @@ const MoviesContextProvider = (props) => {
   };
 
   const addPlaylistMovie = (playlistName, movie) => {
-    const playlist = playlists.find((p) => p.playlist === playlistName);
-    if (playlist) {
-      const updatedPlaylist = {
-        ...existingPlaylist,
-        movies: [...existingPlaylist.movies, ...movie],
-      };
-      setPlaylists((prevPlaylists) => [...prevPlaylists, updatedPlaylist]);
+    const playlistIndex = playlists.findIndex((p) => p.playlist === playlistName);
+  
+    if (playlistIndex !== -1) {
+      const updatedPlaylists = [...playlists];
+      updatedPlaylists[playlistIndex].movies.push(movie);
+      setPlaylists(updatedPlaylists);
     } else {
-      console.log("playlist not found")
-    }  
+      console.log("playlist not found");
+    }
   };
 
   const removePlaylistMovie = (playlistName, movie) => {
