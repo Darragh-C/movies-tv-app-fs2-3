@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import CardListPage from "../components/cardListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
@@ -10,22 +10,43 @@ import OptionsDropdown from "../components/forms/optionsDropdown";
 import FavRank from "../components/forms/favRank";
 
 const FavouriteMoviesPage = (props) => {
-  const { favourites: movieIds } = useContext(MoviesContext);
-  const [movies, setMovies] = useState([]);
-
   const context = useContext(MoviesContext);
+  const movieIds = context.favourites;
+  const [movies, setMovies] = useState([...movieIds]);
+  const [favMovies, setFavMovies] = useState([]);
+  const [updateStop, setUpdateStop] = useState(true);
+
+  // useEffect(() => {
+
+  //   setFavMovies(context.favourites);
+  // }, [context.favourites]);
+
+  // useEffect(() => {
+  //   setMovies(...movieIds);
+  // }, [movieIds])
+
+
   console.log("context.favourites", context.favourites);
+  console.log("movies", movies);
+  console.log("favMovies", favMovies);
   const rank = [1,2,3,4,5];
 
   const updateRank = (movie, rank) => {
+    //update context
     context.updateFavouriteRank(movie, rank);
+    //update state
+    const rankedMovie = favMovies.filter((m) => m.id === movie);
+    const updatedArray = favMovies.filter((m) => m.id !== movie);
+    updatedArray.splice(rank, 0, ...rankedMovie);
+    setFavMovies(updatedArray);
+    // console.log("newRank", rank);
+    // console.log("updateRank context.favourites", context.favourites);
+    // console.log("updateRank movies", movies);
   }
-
-
 
   // Create an array of queries and run them in parallel.
   const favouriteMovieQueries = useQueries(
-    movieIds.map((movieId) => {
+    movies.map((movieId) => {
       return {
         queryKey: ["movie", { id: movieId }],
         queryFn: getMovie,
@@ -39,28 +60,26 @@ const FavouriteMoviesPage = (props) => {
     return <Spinner />;
   }
 
-  const queriedMovies = favouriteMovieQueries.map((q) => q.data);
-  setMovies(queriedMovies);
+  const queryMovies = favouriteMovieQueries.map((q) => q.data);
 
-  console.log("movies", movies);
-
-  const updateQueriedMoviesRank = ( movie, rank) => {
-    const rankedMovie = movies.filter((m) => m.id === movie);
-    const updatedArray = movies.filter((m) => m.id !== movie);
-    updatedArray.splice(rank, 0, rankedMovie);
-    setMovies(updatedArray);
+  if (updateStop) {
+    setFavMovies(queryMovies);
+    setUpdateStop(false);
   }
+  
+
+  //console.log("favMovies", favMovies);
 
   return (
     <CardListPage
       title="Favourite Movies"
-      movies={movies}
-      action={(movie) => {
+      movies={favMovies}
+      action={(favMovie) => {
         return (
           <>
-            <FavRank movie={movie} items={rank} onAction={updateRank}/>
-            <RemoveFromFavourites item={movie} type={"movie"} />
-            <WriteReview movie={movie} />
+            <FavRank movie={favMovie} items={rank} onAction={updateRank}/>
+            <RemoveFromFavourites item={favMovie} type={"movie"} />
+            <WriteReview movie={favMovie} />
           </>
         );
       }}

@@ -24,6 +24,7 @@ import LogInPage from "./pages/logInPage";
 import AuthContextProvider from "./contexts/authContext";
 import PrivateRoute from "./components/privateRoute";
 import MoviePlaylistsPage from "./pages/moviePlaylists";
+import DragAndDropPage from "./pages/dragAndDrop";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -65,6 +66,7 @@ const App = (props) => {
               <Route path="/cast/favourites" element={<FavouriteCastPage />} />
               <Route path="/movies/:id" element={<MovieDetailsPage />} />
               <Route path="/movies/search" element={<MovieSearch />} />
+              <Route path="/dragndrop" element={<DragAndDropPage />} />
               <Route path="/" element={<MoviesPage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>

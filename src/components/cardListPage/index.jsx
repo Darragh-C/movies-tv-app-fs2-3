@@ -7,15 +7,12 @@ import Drawer from "@mui/material/Drawer";
 import CardList from "../cardList";
 import CardListHeaderInsert from "../headerInserts/cardListHeaderInsert";
 import CardListPagination from "../cardListPagination";
-import MovieSearch from "../movieSearch";
-import MultiCriteriaSearch from "../forms/multiCriteriaSearch";
 import OptionsDrowdown from "../forms/optionsDropdown";
 import Languages from "../../dataStore/iso-codes.json";
-import Ratings from "../../dataStore/ratings.json";
 import { getGenres } from "../../api/tmdb-api";
 import { useQuery } from 'react-query';
 import Spinner from '../spinner';
-import { Button } from "@mui/base";
+import { Button } from "@mui/material";
 
 const styles = {
   root: {
