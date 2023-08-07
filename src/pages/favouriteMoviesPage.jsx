@@ -42,6 +42,7 @@ const FavouriteMoviesPage = () => {
   //movie context
   const context = useContext(MoviesContext);
   const favourites = context.favourites;
+  const favRemoval = context.favRemoval;
   console.log("favourites", favourites);
 
   //movies and grid items state
@@ -83,6 +84,21 @@ const FavouriteMoviesPage = () => {
       console.error('Error updating order:', error);
     }
   };
+
+  //remove item
+  useEffect(() => {
+    const removeItem = async (item) => {
+      try {
+        console.log("removing item:", item)
+        const updatedItems = items.filter((i) =>  i !== item);
+        setItems(updatedItems);
+      } catch (error) {
+        console.error('Error removing item:', error);
+      }
+    };
+
+    removeItem(favRemoval);
+  }, [favRemoval]);
 
   //index swap function
   function onChange(sourceId, sourceIndex, targetIndex) {

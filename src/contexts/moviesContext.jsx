@@ -6,6 +6,7 @@ export const MoviesContext = React.createContext(null);
 
 const MoviesContextProvider = (props) => {
   const [favourites, setFavourites] = useState([]);
+  const [favRemoval, setFavRemoval] = useState("");
   const [myReviews, setMyReviews] = useState( {} ); 
   const [mustWatch, setMustWatch] = useState([]);
   const [linkBasePath, setLinkBasePath] = useState("");
@@ -105,6 +106,7 @@ const MoviesContextProvider = (props) => {
   const removeFromFavourites = (item, type) => {
     if (type === "movie") {
       setFavourites(favourites.filter((mId) => mId !== item.id));
+      setFavRemoval(item);
     } else if (type === "tv") {
       setTvFavourites(tvFavourites.filter((tvId) => tvId !== item.id));
     } else if (type === "cast") {
@@ -153,6 +155,7 @@ const MoviesContextProvider = (props) => {
         removePlaylist,
         removePlaylistMovie,
         playlists,
+        favRemoval
       }}
     >
       {props.children}
