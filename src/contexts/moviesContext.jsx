@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import testPlaylists from "../dataStore/movie-playlists.json"
+import testPlaylists from "../dataStore/movie-playlists.json";
+import testMovies from "../dataStore/testMovies.json";
 
 export const MoviesContext = React.createContext(null);
 
@@ -79,6 +80,10 @@ const MoviesContextProvider = (props) => {
     setFavourites(updatedFavourites);
   };
 
+  const updateFavouritesRank = (updatedFavourites) => {
+    setFavourites(updatedFavourites);
+  };
+
   const addToTvFavourites = (show) => {
     let updatedTvFavourites = [...tvFavourites];
     if (!tvFavourites.includes(show.id)) {
@@ -130,6 +135,7 @@ const MoviesContextProvider = (props) => {
       value={{
         favourites,
         addToFavourites,
+        updateFavouritesRank,
         removeFromFavourites,
         updateFavouriteRank,
         addToMustWatch,

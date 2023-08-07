@@ -19,7 +19,7 @@ const MoviesPage = () => {
   }, [context.basePath]);
 
   // const playlists = context.playlists.map((p) => p.playlist);
-  const playlists =   testPlaylists.map((p) => p.playlist);
+  const playlists = testPlaylists.map((p) => p.playlist);
   
   console.log("playlists at page", playlists)
 

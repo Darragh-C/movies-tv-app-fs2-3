@@ -1,89 +1,143 @@
 import React, { useContext, useState, useEffect } from "react";
-import CardListPage from "../components/cardListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
 import { getMovie } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
 import WriteReview from "../components/cardIcons/writeReview";
-import OptionsDropdown from "../components/forms/optionsDropdown";
-import FavRank from "../components/forms/favRank";
+import { Box } from "@mui/material"; 
+import { GridContextProvider, GridDropZone, GridItem, swap} from "react-grid-dnd"
+import CardItem from "../components/cardItem";
+import Typography from '@mui/material/Typography';
+import MediaHeader from "../components/mediaHeader";
+import CardListHeaderInsert from "../components/headerInserts/cardListHeaderInsert";
+import {Button} from "@mui/material";
 
-const FavouriteMoviesPage = (props) => {
+const styles = {
+  frame: {
+    maxWidth: "100%",
+    margin: "20px",
+  },
+  gridItem: {
+    backgroundColor: "white",
+    border: "2px solid white",
+    boxShadow: "0 4px 8px 0 black",
+    width: "100%",
+    cursor: "-webkit-grab",
+  },
+  container: {
+    backgroundColor: "white",
+  },
+  buttonContainer: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 30,
+  },
+};
+
+const FavouriteMoviesPage = () => {
+
+  //movie context
   const context = useContext(MoviesContext);
-  const movieIds = context.favourites;
-  const [movies, setMovies] = useState([...movieIds]);
-  const [favMovies, setFavMovies] = useState([]);
-  const [updateStop, setUpdateStop] = useState(true);
+  const favourites = context.favourites;
+  console.log("favourites", favourites);
 
-  // useEffect(() => {
+  //movies and grid items state
+  const [movies, setMovies] = useState([...favourites]);
+  const [items, setItems] = useState([]);
+  console.log("items at initial state", items);
 
-  //   setFavMovies(context.favourites);
-  // }, [context.favourites]);
+  //fetch movies
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        console.log("fetching movies")
+        const moviesData = await Promise.all(
+          movies.map(async (id) => {
+            const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}`);
+            const jsonData = await response.json();
+            return(jsonData);
+            //return jsonData.results;
+          })
+        );
+        console.log("moviesData:", moviesData);
+        setItems(moviesData);
+      } catch (error) {
+        console.error('Error fetching movies:', error);
+      }
+    };
 
-  // useEffect(() => {
-  //   setMovies(...movieIds);
-  // }, [movieIds])
+    fetchMovies();
+  }, []);
 
+  //update favourites order
+  const updateOrder = async () => {
+    try {
+      console.log("updating order");
+      const favMovieIds = items.map((i) => i.id);
+      console.log("favMovieIds:", favMovieIds);
+      context.updateFavouriteRank(favMovieIds);
+    } catch (error) {
+      console.error('Error updating order:', error);
+    }
+  };
 
-  console.log("context.favourites", context.favourites);
-  console.log("movies", movies);
-  console.log("favMovies", favMovies);
-  const rank = [1,2,3,4,5];
-
-  const updateRank = (movie, rank) => {
-    //update context
-    context.updateFavouriteRank(movie, rank);
-    //update state
-    const rankedMovie = favMovies.filter((m) => m.id === movie);
-    const updatedArray = favMovies.filter((m) => m.id !== movie);
-    updatedArray.splice(rank, 0, ...rankedMovie);
-    setFavMovies(updatedArray);
-    // console.log("newRank", rank);
-    // console.log("updateRank context.favourites", context.favourites);
-    // console.log("updateRank movies", movies);
+  //index swap function
+  function onChange(sourceId, sourceIndex, targetIndex) {
+    const nextState = swap(items, sourceIndex, targetIndex);
+    setItems(nextState);
+    console.log(items);
   }
-
-  // Create an array of queries and run them in parallel.
-  const favouriteMovieQueries = useQueries(
-    movies.map((movieId) => {
-      return {
-        queryKey: ["movie", { id: movieId }],
-        queryFn: getMovie,
-      };
-    })
-  );
-  // Check if any of the parallel queries is still loading.
-  const isLoading = favouriteMovieQueries.find((m) => m.isLoading === true);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
-
-  const queryMovies = favouriteMovieQueries.map((q) => q.data);
-
-  if (updateStop) {
-    setFavMovies(queryMovies);
-    setUpdateStop(false);
-  }
-  
-
-  //console.log("favMovies", favMovies);
 
   return (
-    <CardListPage
-      title="Favourite Movies"
-      movies={favMovies}
-      action={(favMovie) => {
-        return (
-          <>
-            <FavRank movie={favMovie} items={rank} onAction={updateRank}/>
-            <RemoveFromFavourites item={favMovie} type={"movie"} />
-            <WriteReview movie={favMovie} />
-          </>
-        );
-      }}
-    />
+    <>
+    <MediaHeader>
+      <CardListHeaderInsert title={"Favourite Movies"}/>
+    </MediaHeader>
+    {items.length > 0 ? (
+      <>
+        <div style={styles.buttonContainer}>
+          <Button variant="contained" aria-label="add playlist" onClick={updateOrder}>
+            <Typography>
+              Save Order
+            </Typography>
+          </Button>      
+        </div>
+        <Box sx={styles.frame}> 
+          <GridContextProvider onChange={onChange}>
+            <GridDropZone
+              id="items"
+              boxesPerRow={3}
+              rowHeight={750}
+              style={{ height: 750*Math.ceil(items.length / 3)}}
+            >
+              {items.map((item) => (
+                <GridItem key={item.id} sx={styles.gridItem}>
+                  <CardItem key={item.id} item={item} action={(movie) => {
+                    return (
+                      <>
+                        <RemoveFromFavourites item={movie} type={"movie"} />
+                        <WriteReview movie={movie} />                    
+                      </> 
+                    );
+                  }}
+                  />
+                </GridItem>
+              ))}
+            </GridDropZone>
+          </GridContextProvider>
+        </Box>
+      </>
+    ) : (
+      <div style={styles.buttonContainer}>
+        <Typography component="span" variant="body1" color="textPrimary">
+          No favorites
+        </Typography>        
+      </div>
+    )}
+    </>
   );
 };
 

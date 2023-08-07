@@ -3,6 +3,8 @@ import { Box, Grid } from "@mui/material";
 import { GridContextProvider, GridDropZone, GridItem, swap} from "react-grid-dnd"
 import CardItem from "../components/cardItem";
 import testMovies from "../dataStore/testMovies.json";
+import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
+import WriteReview from "../components/cardIcons/writeReview";
 
 const DragAndDropPage = (props) => {
 
@@ -11,6 +13,7 @@ const DragAndDropPage = (props) => {
   function onChange(sourceId, sourceIndex, targetIndex) {
     const nextState = swap(items, sourceIndex, targetIndex);
     setItems(nextState);
+    console.log(items);
   }
   
   const styles = {
@@ -42,7 +45,15 @@ const DragAndDropPage = (props) => {
         >
           {items.map((item) => (
             <GridItem key={item.id} sx={styles.gridItem}>
-              <CardItem key={item.id} item={item} />
+              <CardItem key={item.id} item={item} action={(movie) => {
+                return (
+                  <>
+                    <RemoveFromFavourites item={movie} type={"movie"} />
+                    <WriteReview movie={movie} />                    
+                  </> 
+                );
+              }}
+              />
             </GridItem>
           ))}
         </GridDropZone>
