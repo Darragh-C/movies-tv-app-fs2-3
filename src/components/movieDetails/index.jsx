@@ -9,6 +9,7 @@ import MovieMetadata from "../movieDetailsComponents/movieMetadata";
 import MovieBio from "../movieDetailsComponents/movieBio";
 import GenreTags from "../movieDetailsComponents/genreTags";
 import ProductionCompaniesRow from "../cardRows/productionCompaniesRow";
+import CrewList from "../crewList";
 
 const styles = {
   fab: { 
@@ -22,7 +23,7 @@ const styles = {
   },
 };
 
-const MovieDetails = ( { movie, cast, action }) => {
+const MovieDetails = ( { movie, cast, crew, castAction, crewAction }) => {
   const { id } = useParams();
 
   const genreNames = movie.genres.map((genre) => genre.name);
@@ -35,9 +36,11 @@ const MovieDetails = ( { movie, cast, action }) => {
       <MovieMetadata movie={movie} />
       <ProductionCompaniesRow companies={movie.production_companies}/>
       { cast &&
-        <CastList cast={cast} onAction={action}/>
+        <CastList cast={cast} onAction={castAction}/>
       }
-      
+      { crew &&
+        <CrewList cast={crew} onAction={crewAction}/>
+      }      
 
       <Fab    
         color="secondary"

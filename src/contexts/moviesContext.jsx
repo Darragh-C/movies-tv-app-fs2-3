@@ -12,6 +12,7 @@ const MoviesContextProvider = (props) => {
   const [linkBasePath, setLinkBasePath] = useState("");
   const [tvFavourites, setTvFavourites] = useState([]);
   const [castFavourites, setCastFavourites] = useState([]);
+  const [crewFavourites, setCrewFavourites] = useState([]);
   const [currentFetchContext, setCurrentFetchContext] = useState("Discover");
   const [playlists, setPlaylists] = useState([  ]);
 
@@ -102,6 +103,15 @@ const MoviesContextProvider = (props) => {
     setCastFavourites(updatedCastFavourites);
   };
 
+  const addToCrewFavourites = (crew) => {
+    console.log("crew fave:", crew)
+    let updatedCrewFavourites = [...crewFavourites];
+    if (!crewFavourites.includes(crew.id)) {
+      updatedCrewFavourites.push(crew.id);
+    }
+    setCrewFavourites(updatedCrewFavourites);
+  };
+
   // We will use this function in a later section
   const removeFromFavourites = (item, type) => {
     if (type === "movie") {
@@ -111,7 +121,9 @@ const MoviesContextProvider = (props) => {
       setTvFavourites(tvFavourites.filter((tvId) => tvId !== item.id));
     } else if (type === "cast") {
       setCastFavourites(castFavourites.filter((castId) => castId !== item.id));
-    }    
+    } else if (type === "crew") {
+      setCastFavourites(crewFavourites.filter((crewId) => crewId !== item.id));
+    }  
   };
 
   const addReview = (movie, review) => {   // NEW
@@ -155,7 +167,9 @@ const MoviesContextProvider = (props) => {
         removePlaylist,
         removePlaylistMovie,
         playlists,
-        favRemoval
+        favRemoval,
+        addToCrewFavourites,
+        crewFavourites
       }}
     >
       {props.children}

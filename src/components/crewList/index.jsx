@@ -31,11 +31,11 @@ const styles = {
   }
 };
 
-const CastList = ( { cast, onAction } ) => {
+const CrewList = ( { cast, onAction } ) => {
   return (
     <>
       <br></br>
-      <h3 style={styles.text}>Cast</h3>
+      <h3 style={styles.text}>Crew</h3>
       <List sx={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper', alignItems: "center" }}>
         {cast.map((c, index) => (
           <React.Fragment key={index}>
@@ -47,7 +47,7 @@ const CastList = ( { cast, onAction } ) => {
               </ListItemAvatar>
               <ListItemText
                 primary={c.name}
-                secondary={`${c.character} | ${c.known_for_department}`}
+                secondary={`${c.job} | ${c.department}`}
               />
               {onAction && onAction(c)}
               <Link to={`/cast/${c.id}`}>
@@ -63,4 +63,4 @@ const CastList = ( { cast, onAction } ) => {
     </>
   );
 };
-export default  CastList ;
+export default  CrewList ;

@@ -9,6 +9,7 @@ import MediaImageList from "../components/imageLists/mediaImageList";
 import MediaHeader from "../components/MediaHeader";
 import MediaHeaderInsert from "../components/headerInserts/MediaHeaderInsert";
 import AddToCastFavouritesIcon from "../components/cardIcons/addToCastFavourites";
+import AddToCrewFavouritesIcon from "../components/cardIcons/addToCrewFavourites";
 
 const MovieDetailsPage = () => {
   const { id } = useParams();
@@ -51,8 +52,12 @@ const MovieDetailsPage = () => {
           <MovieDetails 
             movie={movie} 
             cast={cast.cast}
-            action={(castMember) => {
+            crew={cast.crew}
+            castAction={(castMember) => {
               return <AddToCastFavouritesIcon cast={castMember} />
+            }}
+            crewAction={(crewMember) => {
+              return <AddToCrewFavouritesIcon cast={crewMember} />
             }}
           />
         </TemplateMediaDetailsPage>
