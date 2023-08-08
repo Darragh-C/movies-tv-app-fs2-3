@@ -15,6 +15,10 @@ const FantasyMoviePoster = () => {
   const context = useContext(MoviesContext);
   const fantasyPoster = context.fantasyPoster;
 
+  function handleUpload (imagePath) {
+    context.addFantasyPoster(imagePath);
+  }
+
   return (
     <>
       {fantasyPoster ? (
@@ -28,7 +32,7 @@ const FantasyMoviePoster = () => {
       ) : (
         <MovieIcon fontSize="large"/>
       )}    
-      <ImageUpload/>
+      <ImageUpload action={handleUpload}/>
     </>
   );
 };

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useContext } from 'react';
 import { Button } from '@mui/material';
-import { MoviesContext } from '../../contexts/moviesContext';
+
 
 const styles = {
   buttonContainer: {
@@ -12,15 +12,11 @@ const styles = {
   },
 };
 
-const ImageUpload = () => {
-
-  const context = useContext(MoviesContext);
+const ImageUpload = ({ action }) => {
 
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
   useEffect(() => {
-    console.log('Cloud Name:', import.meta.env.CLOUD_NAME);
-    console.log('Upload Preset:', import.meta.env.UPLOAD_PRESET);
     cloudinaryRef.current = window.cloudinary;
     widgetRef.current = cloudinaryRef.current.createUploadWidget({
       cloudName: import.meta.env.VITE_CLOUD_NAME,
@@ -28,11 +24,10 @@ const ImageUpload = () => {
     }, function(error, result) {
       if (result.event === "success") {
         console.log('SUCCESS!', result);
-        context.addFantasyPoster(result.info.path);
+        action(result.info.path);
       } else {
         console.log("stuff happening", result);
       }
-      
     })
     console.log("cloudinaryRef.current", cloudinaryRef.current)
   }, [])

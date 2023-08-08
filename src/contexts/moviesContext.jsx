@@ -16,6 +16,34 @@ const MoviesContextProvider = (props) => {
   const [currentFetchContext, setCurrentFetchContext] = useState("Discover");
   const [playlists, setPlaylists] = useState([  ]);
   const [fantasyPoster, setFantasyPoster] = useState("");
+  const [imageGalleries, setImageGalleries] = useState([
+    {
+      movieId: "",
+      imagePaths: [],
+    },
+  ]);
+
+  const addGalleryImage = (movieId, imagePath) => {
+    const existingImageGallery = imageGalleries.find((ig) => ig.movieId === movieId);
+    if (existingImageGallery) {
+      const updatedImageGallery = {
+        ...existingImageGallery,
+        imagePaths: [...existingImageGallery.imagePaths, imagePath],
+      };
+      // Update the image gallery array with the updated image gallery
+      setImageGalleries((prevImageGalleries) =>
+      prevImageGalleries.map((ig) => (ig.movieId === movieId ? updatedImageGallery : ig))
+      );
+    } else {
+      // If the image gallery doesn't exist, create a new image gallery object and add it to the image gallery array
+      const newImageGallery = {
+        movieId: movieId,
+        imagePaths: [imagePath],
+      };
+      // Update the image gallery array with the new image gallery
+      setImageGalleries((prevImageGalleries) => [...prevImageGalleries, newImageGallery]);
+    }
+  };
 
   const addFantasyPoster = (posterPath) => {
     setFantasyPoster(posterPath);
@@ -177,6 +205,8 @@ const MoviesContextProvider = (props) => {
         crewFavourites,
         fantasyPoster, 
         addFantasyPoster,
+        addGalleryImage,
+        imageGalleries
       }}
     >
       {props.children}
