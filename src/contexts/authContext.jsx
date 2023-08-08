@@ -11,13 +11,8 @@ const AuthContextProvider = ({ children }) => {
   const navigate = useNavigate();
 
   const authenticate = async (email, password) => {
-    console.log("email:", email);
-    console.log("password:", password);
-    
     const userCredentials = testUserCredentials.find((user) => user.email === email);
-    console.log("userCredentials:", userCredentials);
     const validUser = userCredentials && userCredentials.password === password;
-    console.log("validUser:", validUser);
   
     if (validUser) {
       const token = await fakeAuth(email, password);

@@ -19,10 +19,12 @@ const ImageUpload = () => {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
   useEffect(() => {
+    console.log('Cloud Name:', import.meta.env.CLOUD_NAME);
+    console.log('Upload Preset:', import.meta.env.UPLOAD_PRESET);
     cloudinaryRef.current = window.cloudinary;
     widgetRef.current = cloudinaryRef.current.createUploadWidget({
-      cloudName: import.meta.env.cloudName,
-      uploadPreset: import.meta.env.uploadPreset,
+      cloudName: import.meta.env.VITE_CLOUD_NAME,
+      uploadPreset: import.meta.env.VITE_UPLOAD_PRESET,
     }, function(error, result) {
       if (result.event === "success") {
         console.log('SUCCESS!', result);

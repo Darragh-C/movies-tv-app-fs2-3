@@ -21,7 +21,7 @@ const FantasyMoviePoster = () => {
         <div>
           <img
             style={styles.image}
-            src={`https://res.cloudinary.com/${import.meta.env.cloudName}/image/upload/${fantasyPoster}`}
+            src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUD_NAME}/image/upload/${fantasyPoster}`}
             alt={fantasyPoster}
           />
         </div>
