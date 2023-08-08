@@ -1,8 +1,5 @@
 import React from 'react';
-import { Card, Typography } from '@mui/material';
-import CardItem from '../cardItem';
-import RemoveFromPlaylist from '../cardIcons/removeFromPlaylist';
-import RemovePlaylistIcon from '../cardIcons/removePlaylistIcon';
+import { Typography } from '@mui/material';
 
 const styles = {
   frameContainer: {
@@ -37,9 +34,12 @@ const styles = {
   titleDiv: {
     paddingBottom: "20px"
   },
+  image: {
+    width: "100%",
+  }
 };
 
-const ImageGallery = ({ movieId, movieImages }) => {
+const ImageGallery = ({ galleryImages }) => {
   return (
     <div style={styles.frameContainer}>
       <div style={styles.playlistContainer}>
@@ -48,17 +48,17 @@ const ImageGallery = ({ movieId, movieImages }) => {
             User image gallery
           </Typography>
         </div>
-        {movieImages && 
+        {galleryImages && 
           <div style={{ overflowX: 'auto' }}>
             <div style={styles.cardContainer}>
-              {movieImages.map((m) => (
-                <Card key={m.id} sx={styles.card}>
-                  <CardItem key={m.id} item={m} action={(m) => {
-                    return (
-                      <RemoveFromPlaylist playlist={movieId} movie={m.id}/>
-                    )
-                  }}/>
-                </Card>
+              {galleryImages.map((imagePath) => (
+                <div>
+                  <img
+                    style={styles.image}
+                    src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUD_NAME}/image/upload/${imagePath}`}
+                    alt={imagePath}
+                  />
+                </div>
               ))}
             </div>
           </div>
