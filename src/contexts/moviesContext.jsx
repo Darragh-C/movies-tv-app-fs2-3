@@ -15,6 +15,11 @@ const MoviesContextProvider = (props) => {
   const [crewFavourites, setCrewFavourites] = useState([]);
   const [currentFetchContext, setCurrentFetchContext] = useState("Discover");
   const [playlists, setPlaylists] = useState([  ]);
+  const [fantasyPoster, setFantasyPoster] = useState("");
+
+  const addFantasyPoster = (posterPath) => {
+    setFantasyPoster(posterPath);
+  }
 
   const updateFavouriteRank = (movie, rank) => {
     const updatedArray = favourites.filter((m) => m !== movie);
@@ -169,7 +174,9 @@ const MoviesContextProvider = (props) => {
         playlists,
         favRemoval,
         addToCrewFavourites,
-        crewFavourites
+        crewFavourites,
+        fantasyPoster, 
+        addFantasyPoster,
       }}
     >
       {props.children}

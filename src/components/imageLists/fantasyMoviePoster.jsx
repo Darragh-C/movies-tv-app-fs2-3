@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import MovieIcon from '@mui/icons-material/Movie';
+import ImageUpload from "../ImageUpload";
+import { MoviesContext } from '../../contexts/moviesContext';
+
 
 const styles = {
   image: {
@@ -7,21 +10,25 @@ const styles = {
   }
 }
 
-const FantasyMoviePoster = ({ posterPath }) => {
+const FantasyMoviePoster = () => {
+
+  const context = useContext(MoviesContext);
+  const fantasyPoster = context.fantasyPoster;
 
   return (
     <>
-      {posterPath ? (
+      {fantasyPoster ? (
         <div>
           <img
             style={styles.image}
-            src={`https://image.tmdb.org/t/p/w500${posterPath}`}
-            alt={posterPath}
+            src={`https://res.cloudinary.com/${import.meta.env.cloudName}/image/upload/${fantasyPoster}`}
+            alt={fantasyPoster}
           />
         </div>
       ) : (
         <MovieIcon fontSize="large"/>
-      )}     
+      )}    
+      <ImageUpload/>
     </>
   );
 };
