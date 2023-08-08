@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
@@ -10,6 +10,7 @@ import MovieBio from "../movieDetailsComponents/movieBio";
 import GenreTags from "../movieDetailsComponents/genreTags";
 import ProductionCompaniesRow from "../cardRows/productionCompaniesRow";
 import CrewList from "../crewList";
+import MovieImageGallery from "../movieImageGallery";
 
 const styles = {
   fab: { 
@@ -34,6 +35,7 @@ const MovieDetails = ( { movie, cast, crew, castAction, crewAction }) => {
       <MovieBio movie={movie} />
       <GenreTags genres={genreNames} />
       <MovieMetadata movie={movie} />
+      <MovieImageGallery movieId={movie.id}/>
       <ProductionCompaniesRow companies={movie.production_companies}/>
       { cast &&
         <CastList cast={cast} onAction={castAction}/>

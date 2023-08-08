@@ -10,6 +10,7 @@ import MediaHeader from "../components/MediaHeader";
 import MediaHeaderInsert from "../components/headerInserts/MediaHeaderInsert";
 import AddToCastFavouritesIcon from "../components/cardIcons/addToCastFavourites";
 import AddToCrewFavouritesIcon from "../components/cardIcons/addToCrewFavourites";
+import { Typography } from '@mui/material';
 
 const MovieDetailsPage = () => {
   const { id } = useParams();
