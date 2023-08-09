@@ -18,11 +18,13 @@ const FantasyMoviePage = () => {
   });
 
   const handleUpdate = (data) => {
+    console.log("data", data)
+    console.log("movie", movie)
     const {type, value} = data;
 
-    if (type === "title") {
+    if (type === "Add title") {
       handleTitleUpdate(value)
-    } else if (type === "overview") {
+    } else if (type === "Add overview") {
       handleOverviewUpdate(value)
     } else if (type === "genre") {
       handleGenreUpdate(value)
@@ -32,10 +34,10 @@ const FantasyMoviePage = () => {
     } else if (type === "production") {
       console.log("handleProdUpdate", value)
       handleProdUpdate(value)
-    } else if (type === "release date") {
+    } else if (type === "Add release date") {
       console.log("handleReleaseUpdate", value)
       handleReleaseUpdate(value)
-    } else if (type === "run time") {
+    } else if (type === "Add run time") {
       console.log("handleRuntimeUpdate", value)
       handleRuntimeUpdate(value)
     }

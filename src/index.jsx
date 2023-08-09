@@ -85,6 +85,7 @@ const App = (props) => {
                   </PrivateRoute>
                 }
               />
+              <Route path="/cast/:id" element={<CastDetailsPage />} />
               <Route path="/tvshows/:seriesId/season/:seasonNum" element={<SeasonDetailsPage />} />
               <Route path="/tvshows/:id" element={<TvDetailsPage />} />
               <Route path="/tvshows" element={<TvSeriesPage />} />
