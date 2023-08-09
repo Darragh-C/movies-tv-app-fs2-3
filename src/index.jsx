@@ -92,6 +92,7 @@ const App = (props) => {
               <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
               <Route path="/reviews/:id" element={<MovieReviewPage />} />
               <Route path="/movies/:id" element={<MovieDetailsPage />} />
+              <Route path="/movies/search" element={<MovieSearch />} />
               <Route path="/" element={<MoviesPage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>

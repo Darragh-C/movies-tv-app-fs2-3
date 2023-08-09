@@ -19,17 +19,12 @@ const styles = {
     padding: "20px",
   },
   fab: {
+    top: 2,
     width: 90, 
     height: 40, 
     marginTop: 8,
     position: "fixed",
     right: 2,
-  },
-  searchFab: {
-    top: 52,
-  },
-  filterFab: {
-    top: 2,
   },
   p: {
     fontFamily: "sans-serif",
@@ -146,54 +141,59 @@ function CardListPage({ movies, title, action, pagination, searchQuery, addToPla
         </Grid>
       </Grid>
       <CardListPagination onPagination={pagination}/>
-      <Fab
-        id="filter-fab"
-        color="secondary"
-        variant="extended"
-        onClick={() => setFilterDrawerOpen(true)}
-        sx={{...styles.fab, ...styles.filterFab}}
-      >
-        Filter
-      </Fab>
-      <Drawer
-        id="filter-drawer"
-        anchor="left"
-        open={filterDrawerOpen}
-        onClose={() => setFilterDrawerOpen(false)}
-      >
-        <CardListFilter
-          onUserInput={handleChange}
-          titleFilter={titleFilter}
-          genreFilter={genreFilter}
-          sortOption={sortOption}
-          ratingFilter={ratingFilter}
-        />
-      </Drawer>
-      <Fab
-        id="search-fab"
-        color="secondary"
-        variant="extended"
-        onClick={() => setSearchDrawerOpen(true)}
-        sx={{...styles.fab, ...styles.searchFab}}
-      >
-        Search
-      </Fab>
-      <Drawer
-        id="search-drawer"
-        anchor="left"
-        open={searchDrawerOpen}
-        onClose={() => setSearchDrawerOpen(false)}
-      >
-        <div>
-          <OptionsDrowdown onAction={(value) => pushQueryObject("From year", value)} label={"From year"} items={yearArray.sort((a, b) => b - a)} />
-          <OptionsDrowdown onAction={(value) => pushQueryObject("To year", value)} label={"To year"} items={yearArray.sort((a, b) => b - a)} />
-        </div>
-        <OptionsDrowdown onAction={(value) => pushQueryObject("year", value)} label={"Specific year"} items={yearArray.sort((a, b) => b - a)} />
-        <OptionsDrowdown onAction={(value) => pushQueryObject("language", value)} label={"Language"} items={Languages.map((langObj) => langObj.name).sort((a, b) => a.localeCompare(b))} initialState={"English"} />
-        <OptionsDrowdown onAction={(value) => pushQueryObject("vote", value)} label={"Rating"} items={ratings} />
-        <OptionsDrowdown onAction={(value) => pushQueryObject("genres", value)} label={"Genre"} items={genres.map((genreObj) => genreObj.name).sort((a, b) => a.localeCompare(b))} />
-        <Button variant="outlined" onClick={submitQuery}>Search</Button>
-      </Drawer>
+      {!searchQuery && 
+        <>
+          <Fab
+            id="filter-fab"
+            color="secondary"
+            variant="extended"
+            onClick={() => setFilterDrawerOpen(true)}
+            sx={styles.fab}
+          >
+            Filter
+          </Fab>
+          <Drawer
+            id="filter-drawer"
+            anchor="left"
+            open={filterDrawerOpen}
+            onClose={() => setFilterDrawerOpen(false)}
+          >
+            <CardListFilter
+              onUserInput={handleChange}
+              titleFilter={titleFilter}
+              genreFilter={genreFilter}
+              sortOption={sortOption}
+              ratingFilter={ratingFilter}
+            />
+          </Drawer>
+        </>
+      }
+      {searchQuery && 
+      <>
+        <Fab
+          id="search-fab"
+          color="secondary"
+          variant="extended"
+          onClick={() => setSearchDrawerOpen(true)}
+          sx={styles.fab}
+        >
+          Search
+        </Fab>
+
+          <Drawer
+            id="search-drawer"
+            anchor="left"
+            open={searchDrawerOpen}
+            onClose={() => setSearchDrawerOpen(false)}
+          >
+            <OptionsDrowdown onAction={(value) => pushQueryObject("year", value)} label={"Specific year"} items={yearArray.sort((a, b) => b - a)} />
+            <OptionsDrowdown onAction={(value) => pushQueryObject("language", value)} label={"Language"} items={Languages.map((langObj) => langObj.name).sort((a, b) => a.localeCompare(b))} initialState={"English"} />
+            <OptionsDrowdown onAction={(value) => pushQueryObject("vote", value)} label={"Rating"} items={ratings} />
+            <OptionsDrowdown onAction={(value) => pushQueryObject("genres", value)} label={"Genre"} items={genres.map((genreObj) => genreObj.name).sort((a, b) => a.localeCompare(b))} />
+            <Button variant="outlined" onClick={submitQuery}>Search</Button>
+          </Drawer>
+        </>
+      }
     </>  
   );
 }
