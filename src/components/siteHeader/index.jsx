@@ -32,12 +32,11 @@ const SiteHeader = () => {
   const menuOptions = [
     { label: "Movies", path: "/" },
     { label: "Upcoming movies", path: "/movies/upcoming" },
-    { label: "Search movies", path: "/movies/search" },
     { label: "TV", path: "/tvshows" },
     { label: "Favorite movies", path: "/movies/favourites" },
     { label: "Movie playlists", path: "/movies/playlists" },
-    { label: "Favorite TV", path: "/tvshows/favourites" },
-    { label: "Favorite Cast", path: "/cast/favourites" },
+    { label: "Favorite movie cast", path: "/cast/favourites" },
+    { label: "Favorite TV shows", path: "/tvshows/favourites" },
     { label: "Fantasy movie", path: "/fantasymovie" },
     { label: "Log in", path: "/login" },
   ];

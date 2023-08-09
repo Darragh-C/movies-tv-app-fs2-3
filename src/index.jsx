@@ -61,19 +61,37 @@ const App = (props) => {
                   </PrivateRoute>
                 }
               />
-              <Route path="/cast/:id" element={<CastDetailsPage />} />
+              <Route
+                path="/movies/favourites"
+                element={
+                  <PrivateRoute>
+                    <FavouriteMoviesPage/>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/tvshows/favourites"
+                element={
+                  <PrivateRoute>
+                    <FavouriteTvPage/>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/cast/favourites"
+                element={
+                  <PrivateRoute>
+                    <FavouriteCastPage/>
+                  </PrivateRoute>
+                }
+              />
               <Route path="/tvshows/:seriesId/season/:seasonNum" element={<SeasonDetailsPage />} />
               <Route path="/tvshows/:id" element={<TvDetailsPage />} />
               <Route path="/tvshows" element={<TvSeriesPage />} />
               <Route path="/reviews/form" element={<AddMovieReviewPage />} />
               <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
               <Route path="/reviews/:id" element={<MovieReviewPage />} />
-              <Route path="/movies/favourites" element={<FavouriteMoviesPage />} />
-              <Route path="/tvshows/favourites" element={<FavouriteTvPage />} />
-              <Route path="/cast/favourites" element={<FavouriteCastPage />} />
               <Route path="/movies/:id" element={<MovieDetailsPage />} />
-              <Route path="/movies/search" element={<MovieSearch />} />
-              <Route path="/dragndrop" element={<DragAndDropPage />} />
               <Route path="/" element={<MoviesPage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
