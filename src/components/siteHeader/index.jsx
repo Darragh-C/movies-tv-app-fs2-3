@@ -2,8 +2,6 @@ import React, { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -12,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { AuthContext } from "../../contexts/authContext";
+import LogoutIcon from '@mui/icons-material/Logout';
+import IconButton from "@mui/material/IconButton";
 
 const styles = {
   title: {
@@ -62,10 +62,9 @@ const SiteHeader = () => {
             TMDB Client
           </Typography>
           <Typography variant="h6" sx={styles.title}>
-            All you ever wanted to know about Movies!
+            All you ever wanted to know about Movies and TV!
           </Typography>
-          {isMobile ? (
-            <>
+      
               <IconButton
                 aria-label="menu"
                 aria-controls="menu-appbar"
@@ -100,27 +99,15 @@ const SiteHeader = () => {
                   </MenuItem>
                 ))}
               </Menu>
-            </>
-          ) : (
-            <>
-              {menuOptions.map((opt) => (
-                <Button
-                  key={opt.label}
-                  color="inherit"
-                  onClick={() => handleMenuSelect(opt.path)}
-                >
-                  {opt.label}
-                </Button>
-              ))}
-            </>
-          )}
-          <Button
-                  key={"log-out-btn"}
-                  color="inherit"
-                  onClick={(handleLogout)}
-                >
-                  {"Log out"}
-                </Button>
+              <IconButton
+                key={"log-out-btn"}
+                color="inherit"
+                onClick={(handleLogout)}
+              >
+                <LogoutIcon/>
+              </IconButton>
+            
+
         </Toolbar>
       </AppBar>
       <Offset />

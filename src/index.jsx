@@ -53,7 +53,14 @@ const App = (props) => {
                   </PrivateRoute>
                 }
               />
-              <Route path="/movies/playlists" element={<MoviePlaylistsPage />} />
+              <Route
+                path="/movies/playlists"
+                element={
+                  <PrivateRoute>
+                    <MoviePlaylistsPage/>
+                  </PrivateRoute>
+                }
+              />
               <Route path="/cast/:id" element={<CastDetailsPage />} />
               <Route path="/tvshows/:seriesId/season/:seasonNum" element={<SeasonDetailsPage />} />
               <Route path="/tvshows/:id" element={<TvDetailsPage />} />
