@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import MovieDetails from "../components/movieDetails";
 import { getMovie, getMovieImages, getCast } from '../api/tmdb-api'
@@ -10,7 +10,7 @@ import MediaHeader from "../components/MediaHeader";
 import MediaHeaderInsert from "../components/headerInserts/MediaHeaderInsert";
 import AddToCastFavouritesIcon from "../components/cardIcons/addToCastFavourites";
 import AddToCrewFavouritesIcon from "../components/cardIcons/addToCrewFavourites";
-import { Typography } from '@mui/material';
+import { MoviesContext } from '../contexts/moviesContext';
 
 const MovieDetailsPage = () => {
   const { id } = useParams();

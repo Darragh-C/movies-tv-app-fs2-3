@@ -1,5 +1,9 @@
 import React from 'react';
 import { Typography } from '@mui/material';
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import RemoveFromGalleryIcon from "../cardIcons/removeFromGalleryIcon";
+import Image from '../image';
 
 const styles = {
   frameContainer: {
@@ -15,7 +19,6 @@ const styles = {
     border: "1px solid #ccc",
     borderRadius: "18px",
     boxShadow: "0 5px 10px rgba(0, 0, 0, 0.1)", 
- 
     minWidth: "100%",
   },
   cardContainer: {
@@ -35,11 +38,11 @@ const styles = {
     paddingTop: "20px"
   },
   image: {
-    width: "40%",
+    width: "150px",
   }
 };
 
-const ImageGallery = ({ galleryImages }) => {
+const ImageGallery = ({ galleryImages, action }) => {
   return (
     <>
       <div style={styles.titleDiv}>
@@ -53,19 +56,14 @@ const ImageGallery = ({ galleryImages }) => {
             <div style={{ overflowX: 'auto' }}>
               <div style={styles.cardContainer}>
                 {galleryImages.map((imagePath) => (
-                  <div>
-                    <img
-                      style={styles.image}
-                      src={`https://res.cloudinary.com/${import.meta.env.VITE_CLOUD_NAME}/image/upload/${imagePath}`}
-                      alt={imagePath}
-                    />
-                  </div>
+                  <Image key={imagePath} imagePath={imagePath} action={action}/>
                 ))}
               </div>
             </div>
           }
         </div>
       </div>    
+      
     </>
 
   );

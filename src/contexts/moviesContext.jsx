@@ -23,25 +23,45 @@ const MoviesContextProvider = (props) => {
     },
   ]);
 
+  const addMovieGallery = (movieId) => {
+    console.log("gallery movieId at context function", movieId);
+    let updatedGalleries = [...imageGalleries];
+    const newMovieGallery = {
+      movieId: movieId,
+      imagePaths: [],
+    };
+    updatedGalleries.push(newMovieGallery);
+    setImageGalleries(updatedGalleries);
+  };
+
   const addGalleryImage = (movieId, imagePath) => {
-    const existingImageGallery = imageGalleries.find((ig) => ig.movieId === movieId);
-    if (existingImageGallery) {
-      const updatedImageGallery = {
-        ...existingImageGallery,
-        imagePaths: [...existingImageGallery.imagePaths, imagePath],
-      };
-      // Update the image gallery array with the updated image gallery
-      setImageGalleries((prevImageGalleries) =>
-      prevImageGalleries.map((ig) => (ig.movieId === movieId ? updatedImageGallery : ig))
-      );
+    const movieGalleryIndex = imageGalleries.findIndex((ig) => ig.movieId === movieId);
+  
+    if (movieGalleryIndex !== -1) {
+      const updatedGalleries = [...imageGalleries];
+      updatedGalleries[movieGalleryIndex].imagePaths.push(imagePath);
+      setImageGalleries(updatedGalleries);
     } else {
-      // If the image gallery doesn't exist, create a new image gallery object and add it to the image gallery array
-      const newImageGallery = {
-        movieId: movieId,
-        imagePaths: [imagePath],
+      console.log("movie image gallery not found");
+    }
+  };
+
+  const removeGaleryImage = (movieId, imagePath) => {
+    console.log("removing image", imagePath);
+    console.log("from", movieId);
+    const movieGallery = imageGalleries.find((ig) => ig.movieId === movieId);
+    if (movieGallery) {
+      const updatedImagePaths = movieGallery.imagePaths.filter((path) => path !== imagePath);
+      const updatedMovieGallery = {
+        ...movieGallery,
+        imagePaths: updatedImagePaths,
       };
-      // Update the image gallery array with the new image gallery
-      setImageGalleries((prevImageGalleries) => [...prevImageGalleries, newImageGallery]);
+      const currentGalleryIndex = imageGalleries.findIndex((g) => g.movieId === movieId);
+      if (currentGalleryIndex !== -1) {
+        const updatedImageGalleries = [...imageGalleries];
+        updatedImageGalleries[currentGalleryIndex] = updatedMovieGallery;
+        setImageGalleries(updatedImageGalleries);
+      }
     }
   };
 
@@ -205,8 +225,10 @@ const MoviesContextProvider = (props) => {
         crewFavourites,
         fantasyPoster, 
         addFantasyPoster,
+        imageGalleries,
+        addMovieGallery,
         addGalleryImage,
-        imageGalleries
+        removeGaleryImage
       }}
     >
       {props.children}

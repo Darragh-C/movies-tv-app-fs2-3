@@ -25,7 +25,6 @@ const styles = {
 };
 
 const MovieDetails = ( { movie, cast, crew, castAction, crewAction }) => {
-  const { id } = useParams();
 
   const genreNames = movie.genres.map((genre) => genre.name);
 

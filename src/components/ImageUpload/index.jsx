@@ -35,7 +35,7 @@ const ImageUpload = ({ action }) => {
   return (
     <div style={styles.buttonContainer}>
       <Button variant="contained" aria-label="upload image" onClick={() => widgetRef.current.open()}>
-        Upload
+        Upload Image
       </Button>      
     </div>
 
